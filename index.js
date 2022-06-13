@@ -11,19 +11,15 @@ const app = express();
 //Configurar CORS
 app.use(cors());
 
+//Lectura y parseo del body
+app.use(express.json());
+
 //DataBase
 dbConnection();
 
-//Variables de entorno de Node
-//console.log(process.env)
-
 //Rutas
-app.get('/', (request, response) => {
-	response.json({
-		ok: true,
-		message: 'Hola Mundo'
-	})
-})
+app.use('/api/user', require('./routes/user'));
+app.use('/api/login', require('./routes/auth'));
 
 app.listen(process.env.PORT, () => {
 	console.log('Servidor corriendo en puesrto ' + process.env.PORT)
